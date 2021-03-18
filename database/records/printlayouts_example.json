@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Pre-orders ",
+        "layout": "<table style=\"width: 100%\">\n    <tr>\n        <td style=\"width: 25%; vertical-align: top\">\n            Order Number: {{ $order_number }} <br />\n            Order Type: {{ $order_type }} <br />\n        </td>\n        <td style=\"width: 25%; vertical-align: top\">\n            {{ $first_name }} {{ $last_name }} <br />\n    @if( $order_type == 'Delivery' )\n                {{ nl2br($order_address) }}\n            @endif\n            {{ $email }} <br />\n            {{ $telephone }} \n        </td>\n        <td style=\"width: 25%; vertical-align: top\">\n            {{ $order_time }} <br />\n            {{ $order_date }}\n        </td>\n        <td style=\"width: 25%; vertical-align: top\">\n            @foreach($order_menus as $menu)\n                <span class=\"pl_menu_item pl_menu_id_{{ $menu['menu_id'] }} pl_menu_category_{{ $menu['category_id'] }}\">\n                    {{ $menu['menu_quantity'] }} x {{ $menu['menu_name'] }}<br />\n           </span>\n                @if($menu['menu_options'])\n                <span class=\"\"> \n                 {!! $menu['menu_options'] !!}\n          </span>\n<br />\n                @endif\n                @if($menu['menu_comment'])\n                    {{ $menu['menu_comment'] }}<br />\n                @endif\n            @endforeach\n        </td>\n    </tr>\n</table>",
+        "style": "<style>\n        .pl_menu_category_1{\n          background-color: #ff0;\n        }\n        </style>",
+        "separate_pages": "false",
+        "page_separator": "--------------------------------------------------",
+        "show_button_on_list": true,
+        "show_button_on_form": "false"
+    }
+]
