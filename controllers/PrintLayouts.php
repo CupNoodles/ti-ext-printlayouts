@@ -75,6 +75,8 @@ class PrintLayouts extends \Admin\Classes\AdminController
 
         $data = $orders_model->mailGetData();
 
+        
+
         // Override extra mail variables you'd like to use in the template here
         $data['order_menus'] = [];
         $menus = $orders_model->getOrderMenusWithOptions();
@@ -86,7 +88,14 @@ class PrintLayouts extends \Admin\Classes\AdminController
                 }
             }
 
-            $menu_category_id =  \Admin\Models\Menu_categories_model::where('menu_id', $menu->menu_id)->first()->category_id;
+            $menu_category = \Admin\Models\Menu_categories_model::where('menu_id', $menu->menu_id)->first();
+            if(isset($menu_category)){
+                $menu_category_id =  \Admin\Models\Menu_categories_model::where('menu_id', $menu->menu_id)->first()->category_id;
+            }
+            else{
+                $menu_category_id = 0;
+            }
+            
             
             $menu_arr = [
                 'menu_name' => $menu->name,
