@@ -16,7 +16,14 @@ function build_link_url(){
     $(".checkbox-print-ids").each(function(){
         var href = $(this).attr('href');
         href = href.replace(/\/[^/]*$/, '/' + id_string);
-        $(this).attr('href', href);
+        if(id_string == ''){
+            $(this).hide();
+        }
+        else{
+            $(this).show();
+            $(this).attr('href', href);
+        }
+        
     });
 
 }
