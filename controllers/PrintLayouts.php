@@ -89,8 +89,8 @@ class PrintLayouts extends \Admin\Classes\AdminController
             }
 
             $menu_category = \Admin\Models\Menu_categories_model::where('menu_id', $menu->menu_id)->first();
-            if(isset($menu_category)){
-                $menu_category_id =  \Admin\Models\Menu_categories_model::where('menu_id', $menu->menu_id)->first()->category_id;
+            if($menu_category){
+                $menu_category_id =  $menu_category->category_id;
             }
             else{
                 $menu_category_id = 0;
