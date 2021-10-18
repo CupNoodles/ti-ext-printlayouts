@@ -68,23 +68,26 @@ class Extension extends BaseExtension
 
 
 
-        Event::listen('admin.toolbar.extendButtons', function ($toolbar){
+
+        Event::listen('admin.toolbar.extendButtonsBefore', function ($toolbar){
             if(get_class($toolbar->getController()) == 'Admin\Controllers\Orders' ||
             get_class($toolbar->getController()) == 'CupNoodles\OrderMenuEdit\Controllers\Orders' // Exists in the cupnoodles.ordersmenuedit extension
             ) {
 
                 
                 if($toolbar->getContext() == 'index'){
-
+                    
                     $toolbar->getController()->addJS('extensions/cupnoodles/printlayouts/assets/js/printlayouts.js', 'cupnoodles-printlayouts');
 
                     foreach(\CupNoodles\PrintLayouts\Models\PrintLayouts::where('show_button_on_list', '1')->get()->toArray() as $ix=>$layout){
+                        
                         $toolbar->buttons['print']  = [
                             'label' => lang('cupnoodles.printlayouts::default.print_layout') . ' - ' . $layout['name'],
                             'class' => 'btn btn-danger checkbox-print-ids',
                             'target' => '_blank',
                             'href' => 'cupnoodles/printlayouts/printlayouts/layout/' . $layout['printlayouts_id'] . '/0',
                         ];
+                        
                     }
                 }
 
@@ -102,6 +105,7 @@ class Extension extends BaseExtension
                 }
             }
         });
+
     }
 
 
