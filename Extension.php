@@ -92,9 +92,9 @@ class Extension extends BaseExtension
                 }
 
                 if($toolbar->getContext() == 'edit'){
-
+                    
                     foreach(\CupNoodles\PrintLayouts\Models\PrintLayouts::where('show_button_on_form', '1')->get()->toArray() as $ix=>$layout){
-                        $order_id = str_replace(['orders/edit/', 'cupnoodles/ordermenuedit/orders/edit/'], ['', ''], Route::current()->parameters['slug']);
+                        $order_id = str_replace(['orders/edit/', 'cupnoodles/ordermenuedit/orders/edit/', 'cupnoodles/ordermenuedit/'], ['', '', ''], Route::current()->parameters['slug']);
                         $toolbar->buttons['print']  = [
                             'label' => lang('cupnoodles.printlayouts::default.print_layout') . ' - ' . $layout['name'],
                             'class' => 'btn btn-danger checkbox-print-ids',
