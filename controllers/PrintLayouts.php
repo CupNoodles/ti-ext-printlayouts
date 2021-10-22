@@ -59,7 +59,23 @@ class PrintLayouts extends \Admin\Classes\AdminController
 
         $orders = [];
         $layout = \CupNoodles\PrintLayouts\Models\PrintLayouts::find($layoutId);
-        foreach(explode('+', $recordIds) as $order_id){
+        $records = explode('+', $recordIds);
+
+        //force sorting by order time since why wouldn't you want that?
+        usort($records, function($a, $b){
+            $orders_model_a = \Admin\Models\Orders_model::find($a);
+            $orders_model_b = \Admin\Models\Orders_model::find($b);
+
+            if(strtotime($orders_model_a->order_date) == strtotime($orders_model_b->order_date)){
+                return strtotime($orders_model_a->order_time) > strtotime($orders_model_b->order_time);
+            }
+            else{
+                return strtotime($orders_model_a->order_date) > strtotime($orders_model_b->order_date);
+            }
+            
+        });
+
+        foreach($records as $order_id){
             $orders_model = \Admin\Models\Orders_model::find($order_id);
             $data = $this->mailGetData($orders_model);
             $orders[] = html_entity_decode(MailManager::instance()->render($layout->layout, $data));
