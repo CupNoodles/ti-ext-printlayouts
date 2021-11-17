@@ -1,11 +1,11 @@
 {
-    "code": "cupnoodles.quickstock",
-    "name": "Quick 86",
-    "description": "Single page to set items in and out of stock at each location.",
+    "code": "cupnoodles.printlayouts",
+    "name": "Print Layouts",
+    "description": "Print Layout manager for orders.",
     "version": "v1.0.0",
     "author": "CupNoodles",
     "icon": {
-      "class": "fa fa-balance-scale",
+      "class": "fa fa-print",
       "backgroundColor": "#1B294B",
       "color": "#fff"
     },
