@@ -78,6 +78,21 @@ class PrintLayouts extends \Admin\Classes\AdminController
         foreach($records as $order_id){
             $orders_model = \Admin\Models\Orders_model::find($order_id);
             $data = $this->mailGetData($orders_model);
+            foreach($data['order_menus'] as $ix=>$menu){
+                $data['order_menus'][$ix]['print_docket'] = \Admin\Models\Menus_model::where('menu_id', $menu['menu_id'])->pluck('print_docket')->first();
+                $data['order_menus'][$ix]['category_sort']  = \Admin\Models\Categories_model::where('category_id', $menu['category_id'])->pluck('priority')->first();
+            }
+            usort($data['order_menus'], function($a, $b){
+                if($a['category_sort'] == $b['category_sort']){
+                    return strcmp(
+                        ($a['print_docket'] != '' ? $a['print_docket'] : $a['menu_name']), 
+                        ($b['print_docket'] != '' ? $b['print_docket'] : $b['menu_name'])
+                    );
+                }
+                else{
+                    return $a['category_sort'] > $b['category_sort'];
+                }
+            });
             $orders[] = html_entity_decode(MailManager::instance()->render($layout->layout, $data));
         }
         
